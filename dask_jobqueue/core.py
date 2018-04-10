@@ -223,6 +223,10 @@ class JobQueueCluster(Cluster):
             names = {v['name'] for v in workers.values()}
             job_ids = {name.split('-')[-2] for name in names}
             self.stop_workers(job_ids)
+        else:
+            import cloudpickle
+            cloudpickle.dump(workers, open('/tmp/test.pkl', 'wb'))
+            self.stop_workers(workers)
 
     def __enter__(self):
         return self
