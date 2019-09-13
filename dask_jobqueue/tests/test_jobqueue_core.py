@@ -19,12 +19,9 @@ from dask_jobqueue import (
 from dask_jobqueue.sge import SGEJob
 
 
-@pytest.mark.xfail
 def test_errors():
-    with pytest.raises(NotImplementedError) as info:
+    with pytest.raises(ValueError, match="Job type.*job_cls="):
         JobQueueCluster(cores=4)
-
-    assert "abstract class" in str(info.value)
 
 
 def test_command_template():
